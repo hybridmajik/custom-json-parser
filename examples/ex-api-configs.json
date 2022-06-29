@@ -1,0 +1,32 @@
+{
+    "MY-AUTH-TOKEN": {
+        "requestMethod": "POST",
+        "description": "Get Authorization Token",
+        "url": "!{authUrl}/api/auth/token",
+        "headers": {
+            "Content-Type": "application/x-www-form-urlencoded",
+            "Cache-Control": "no-cache"
+        },
+        "data": {
+            "grant_type": "client_credentials", 
+            "some_id": "!{apiId}",
+            "some_secret": "!{apiSecret}"
+        },
+        "returnPartialResponse": false,
+        "partialResponseKeyPath": "",
+        "onlyCallOnce": true
+    },
+    "COOL-ENDPOINT": {
+        "requestMethod": "GET",
+        "description": "A GET URL",
+        "url": "!{baseUrl}/api/v4/something/!{lookupId}",
+        "headers": {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer %{MY-AUTH-TOKEN.access_token}"
+        },
+        "data": {},
+        "returnPartialResponse": true,
+        "partialResponseKeyPath": "data",
+        "onlyCallOnce": true
+    }
+}

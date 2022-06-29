@@ -1,0 +1,21 @@
+{
+    "myKey1": "uat",
+    "myEnv": "!{envFromGlobal}",
+    "myObject": {
+        "dev": {
+            "someKey": "111"
+        },
+        "sit": {
+            "someKey": "222"
+        },
+        "uat": {
+            "someKey": "333"
+        },
+        "prod": {
+            "someKey": "444"
+        }
+    },
+    "referenceASimpleKey": "${myKey1}",
+    "callingNestedKey": "${myObject.dev.someKey}",
+    "callingNestedKeyWithVariable": "${myObject.${myEnv}.someKey}"
+}

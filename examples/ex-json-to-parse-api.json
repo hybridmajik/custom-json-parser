@@ -1,0 +1,5 @@
+{
+    "someKey": "abc",
+    "myId": "#{COOL-ENDPOINT.id}",
+    "selfReferencingThingAbove": "${myId}"
+}
