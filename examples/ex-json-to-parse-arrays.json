@@ -1,21 +1,5 @@
 {
     "myKey1": "test",
-    "myEnv": "appdev",
-    "myObject": {
-        "dev": {
-            "someKey": "111"
-        },
-        "appdev": {
-            "someKey": "222"
-        },
-        "qa": {
-            "someKey": "333"
-        },
-        "prod": {
-            "someKey": "444"
-        }
-    },
-    "complexString": "this-needs-to-be-split-later",
     "anArrayOfItems": [ "this", "is", "an", "array"],
     "anArrayOfObjects": [
         {
@@ -36,9 +20,7 @@
     ],
     "referenceASimpleKey": "${myKey1}",
     "accessingAnArrayWithIndex": "${anArrayOfItems[3]}",
+    "accessingAnArrayOfObjectsWithIndex": "${anArrayOfObjects[0].myKey1}",
     "accessingAnArrayWithFilter": "${anArrayOfObjects[id=id2].myKey1}",
-    "accessingAnArrayWithFilterAndGlobal": "${anArrayOfObjects[id=${myPassedInIdValue}].myKey1}",
-    "callingAFunction": "@split(${complexString},-,4)",
-    "callingNestedKey": "${myObject.prod.someKey}",
-    "callingNestedKeyWithVariable": "${myObject.${myEnv}.someKey}"
+    "accessingAnArrayWithFilterAndGlobal": "${anArrayOfObjects[id=!{myPassedInIdValue}].myKey1}"
 }

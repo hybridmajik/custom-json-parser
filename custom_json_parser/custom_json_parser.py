@@ -205,7 +205,7 @@ def parseJson(input, origJson):
   # If current object is any other primitive, return it
   elif(isinstance(input,(bool, int, float))):
     return input
-  # If the stars align and this is magically hit, please submit a bug ticket to khanso
+  # If the stars align and this is magically hit, please submit a bug ticket
   else:
     errorWithMsg(f"Found new uncaught type in json/dict... {type(input)}", 2)
 
