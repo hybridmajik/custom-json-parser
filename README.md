@@ -245,7 +245,7 @@ python3 parse.py \
 </tr>
 </table>
 
-### Calling a custom function
+### Calling an external API
 Given an API Config JSON file of:
 
 ```json
@@ -308,3 +308,46 @@ python3 parse.py \
 </td>
 </tr>
 </table>
+
+### Calling an external API with auth token
+
+Sometimes you might need to initially get an authorization token of some kind before you make an API call and we offer a solution to dynamically retrieve this token below.
+
+In the JSON Below, the parser will detect that `COOL-ENDPOINT` references the `MY-AUTH-TOKEN` endpoint and it will form a parent/child graph in which all dependent endpoints will be queried first.
+
+This will allow the `COOL-ENDPOINT` to reference the response data (in this case an access-token) of another endpoint.
+
+```json
+{
+    "MY-AUTH-TOKEN": {
+        "requestMethod": "POST",
+        "description": "Get Authorization Token",
+        "url": "!{authUrl}/api/auth/token",
+        "headers": {
+            "Content-Type": "application/x-www-form-urlencoded",
+            "Cache-Control": "no-cache"
+        },
+        "data": {
+            "grant_type": "client_credentials", 
+            "some_id": "!{apiId}",
+            "some_secret": "!{apiSecret}"
+        },
+        "returnPartialResponse": false,
+        "partialResponseKeyPath": "",
+        "onlyCallOnce": true
+    },
+    "COOL-ENDPOINT": {
+        "requestMethod": "GET",
+        "description": "A GET URL",
+        "url": "!{baseUrl}/api/v4/something/!{lookupId}",
+        "headers": {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer %{MY-AUTH-TOKEN.access_token}"
+        },
+        "data": {},
+        "returnPartialResponse": true,
+        "partialResponseKeyPath": "data",
+        "onlyCallOnce": true
+    }
+}
+```
