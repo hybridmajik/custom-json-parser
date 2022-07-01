@@ -41,6 +41,14 @@ optional arguments:
 
 Examples can be found in `./examples/` directory in this project.  This section will show shell commands with before and after evaluations of the JSON.
 
+### Quick Links to Examples
+* [Basic Self References](#basic-self-references)
+* [Referencing Arrays](#referencing-arrays)
+* [Calling a custom function](#calling-a-custom-function)
+* [Calling an external API](#calling-an-external-api)
+* [Calling an external API with auth token](#calling-an-external-api-with-auth-token)
+
+
 ### Basic Self References
 ```
 python3 parse.py \
