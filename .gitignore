@@ -1,3 +1,4 @@
-utils/__pycache__/
-custom_json_parser/__pycache__/
-custom_json_parser/utils/__pycache__/
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
