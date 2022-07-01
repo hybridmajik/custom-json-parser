@@ -201,3 +201,110 @@ python3 parse.py \
 </td>
 </tr>
 </table>
+
+### Calling a custom function
+```
+python3 parse.py \
+-j examples/ex-json-to-parse-functions.json \
+-g myPassedInIdValue=id3
+```
+
+<table>
+<tr>
+<td> State </td> <td> examples/ex-json-to-parse-functions.json </td>
+</tr>
+<tr>
+<td> Before </td>
+<td>
+
+```json
+{
+    "complexString": "this-needs-to-be-split-later",
+    "callingAFunction": "@split(${complexString},-,4)",
+    "aMoreComplexString": "http://something.neat/api/v1/extractthisstring?wow=cool",
+    "functionInsideAFunction": "@split(@split(${aMoreComplexString},?,0),/,5)"
+}
+```
+
+</td>
+</tr>
+<tr>
+<td> After </td>
+<td>
+
+```json
+{
+  "complexString": "this-needs-to-be-split-later",
+  "callingAFunction": "split",
+  "aMoreComplexString": "http://something.neat/api/v1/extractthisstring?wow=cool",
+  "functionInsideAFunction": "extractthisstring"
+}
+```
+
+</td>
+</tr>
+</table>
+
+### Calling a custom function
+Given an API Config JSON file of:
+
+```json
+{
+    "GHIBLI": {
+        "requestMethod": "GET",
+        "description": "Studio Ghibli API for My Neighbor Totoro",
+        "url": "https://ghibliapi.herokuapp.com/films/58611129-2dbc-4a81-a72f-77ddfc1b1b49",
+        "headers": {
+            "Content-Type": "application/json"
+        },
+        "data": null,
+        "returnPartialResponse": false,
+        "partialResponseKeyPath": null,
+        "onlyCallOnce": true
+    }
+}
+```
+
+We can perform the following:
+
+```
+python3 parse.py \
+-j examples/ex-json-to-parse-api.json \
+-a examples/api-configs/ex-api-config-basic.json
+```
+
+<table>
+<tr>
+<td> State </td> <td> examples/ex-json-to-parse-api.json </td>
+</tr>
+<tr>
+<td> Before </td>
+<td>
+
+```json
+{
+    "someKey": "abc",
+    "movieTitle": "#{GHIBLI.title}",
+    "movieDirector": "#{GHIBLI.director}",
+    "movieRtScore": "#{GHIBLI.rt_score}"
+}
+```
+
+</td>
+</tr>
+<tr>
+<td> After </td>
+<td>
+
+```json
+{
+  "someKey": "abc",
+  "movieTitle": "My Neighbor Totoro",
+  "movieDirector": "Hayao Miyazaki",
+  "movieRtScore": "93"
+}
+```
+
+</td>
+</tr>
+</table>

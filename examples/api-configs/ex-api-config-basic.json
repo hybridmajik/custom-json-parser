@@ -1,0 +1,14 @@
+{
+    "GHIBLI": {
+        "requestMethod": "GET",
+        "description": "Studio Ghibli API for My Neighbor Totoro",
+        "url": "https://ghibliapi.herokuapp.com/films/58611129-2dbc-4a81-a72f-77ddfc1b1b49",
+        "headers": {
+            "Content-Type": "application/json"
+        },
+        "data": null,
+        "returnPartialResponse": false,
+        "partialResponseKeyPath": null,
+        "onlyCallOnce": true
+    }
+}

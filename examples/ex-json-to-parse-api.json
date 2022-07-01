@@ -1,5 +1,6 @@
 {
     "someKey": "abc",
-    "myId": "#{COOL-ENDPOINT.id}",
-    "selfReferencingThingAbove": "${myId}"
+    "movieTitle": "#{GHIBLI.title}",
+    "movieDirector": "#{GHIBLI.director}",
+    "movieRtScore": "#{GHIBLI.rt_score}"
 }

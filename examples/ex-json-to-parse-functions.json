@@ -1,6 +1,6 @@
 {
     "complexString": "this-needs-to-be-split-later",
     "callingAFunction": "@split(${complexString},-,4)",
-    "aMoreComplexString" "http://something.neat/api/v1/?wow=cool"
-    "functionInsideAFunction": ""
+    "aMoreComplexString": "http://something.neat/api/v1/extractthisstring?wow=cool",
+    "functionInsideAFunction": "@split(@split(${aMoreComplexString},?,0),/,5)"
 }

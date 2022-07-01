@@ -202,6 +202,8 @@ def parseJson(input, origJson):
   # If current object is string, attempt to evaluate any self.references or API references
   elif(isinstance(input,str)):
     return evaluateJsonVariable(input, origJson)
+  elif(input is None):
+    return None
   # If current object is any other primitive, return it
   elif(isinstance(input,(bool, int, float))):
     return input
@@ -325,7 +327,7 @@ def checkForAndExtactAPIResults(inputJson, apiConfigInputJson):
   # Go through input json and get unique list of referenced API calls
   # Given #{SOMEAPIALIAS.some.path.to.value}, matches the group result: SOMEAPIALIAS
   apiMatchRegex = "[#]{([^\$!#@{}()]+)\."
-  print(json.dumps(inputJson))
+  printVerbose(json.dumps(inputJson))
   apiList = re.findall(apiMatchRegex, json.dumps(inputJson))
   distinctApiList = list(set(apiList))
 
@@ -339,9 +341,9 @@ def checkForAndExtactAPIResults(inputJson, apiConfigInputJson):
       raise ValueError(f"Some API References {diffSet} do not seem to exist in API Config JSON {apiConfigInputJson.keys()}")
     # Eval API config globals
     evaluatedAPIConfigJson = parse(apiConfigInputJson)
-    custFuncs.printJson(evaluatedAPIConfigJson)
+    if(VERBOSE):
+      custFuncs.printJson(evaluatedAPIConfigJson)
 
     apiGraph.generateApiGraph(evaluatedAPIConfigJson)
-    apiGraph.performAllApiCalls(externalLookupMap=EXTERNAL_JSON_LOOKUP, shouldPrint=True)
-    print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
-    print(EXTERNAL_JSON_LOOKUP)
+    apiGraph.performAllApiCalls(externalLookupMap=EXTERNAL_JSON_LOOKUP, shouldPrint=VERBOSE)
+    printVerbose(EXTERNAL_JSON_LOOKUP)

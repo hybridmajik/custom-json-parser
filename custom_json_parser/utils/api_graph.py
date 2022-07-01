@@ -116,15 +116,10 @@ def traverseApiNodeGraphBFS(shouldPrint, attemptApiCall, externalLookupMap):
             q.put(childNode)
 
 def attemptApiCallAndRegisterResults(apiNode, externalLookupMap):
-    print("+++++++++++++++++++++++++++++++")
-    print("Current EXT Map")
-    print(externalLookupMap)
     newApiJson = evaluateApiReferences(apiNode.getJson())
     apiNode.setJson(newApiJson)
     apiJson = apiNode.getJson()
-    print("+++++++++++++++++++++++++++++++")
-    print(apiNode)
-    print(apiJson)
+
     response = None
     if apiJson["requestMethod"] == "POST":
         response = requests.post(apiJson["url"], data=apiJson["data"], headers=apiJson["headers"])
@@ -142,8 +137,6 @@ def attemptApiCallAndRegisterResults(apiNode, externalLookupMap):
             externalLookupMap[apiNode.getId()] = extractedJson
         else:
          externalLookupMap[apiNode.getId()] = response.json()
-    print("we did it")
-    print ("-------------------")
 
 def evaluateApiReferences(apiJson):
     jsonToReplace = apiJson
